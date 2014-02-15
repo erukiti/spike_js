@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja" ng-app>
+<html lang="ja" ng-app="spike">
 <meta charset="utf-8">
 <script src="/bower_components/angular/angular.min.js"></script>
 <script src="/module/app.js"></script>
 <h1>ほげー</h1>
-<input type="text" ng-model="test">「{{test}}」
+<div ng-controller="versionController">
+  <dl>
+    <dt>name</dt><dd>{{version.name}}</dd>
+    <dt>version</dt><dd>{{version.version}}</dd>
+  </dl>
+</div>
 </html>
