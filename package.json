@@ -1,0 +1,10 @@
+{
+  "name": "spike",
+  "version": "0.0.1",
+  "dependencies": {
+    "grunt": "0.4.2",
+    "grunt-cli": "0.1.13",
+    "bower": "1.2.8",
+    "grunt-contrib": "0.9.0"
+  }
+}
