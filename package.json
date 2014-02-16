@@ -9,7 +9,9 @@
     "karma": "0.10.9",
     "grunt-coffeelint": "~0.0.8",
     "grunt-karma": "~0.6.2",
-    "time-grunt": "~0.2.9"
+    "time-grunt": "~0.2.9",
+    "grunt-ngmin": "0.0.3",
+    "grunt-usemin": "~2.0.2"
   },
   "devDependencies": {}
 }

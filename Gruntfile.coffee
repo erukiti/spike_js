@@ -6,6 +6,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib'
   grunt.loadNpmTasks 'grunt-karma'
   grunt.loadNpmTasks 'grunt-coffeelint'
+  grunt.loadNpmTasks 'grunt-ngmin'
+  grunt.loadNpmTasks 'grunt-usemin'
   require('time-grunt')(grunt)
 
   grunt.initConfig
@@ -16,7 +18,8 @@ module.exports = (grunt) ->
           hostname: 'localhost'
           base: [
             'dist',
-            'app'
+            'app',
+            '.tmp'
           ]
           open: true
 
@@ -35,7 +38,7 @@ module.exports = (grunt) ->
           expand: true
           cwd: 'app/module/'
           src: ['**/*.coffee']
-          dest: 'dist/module/'
+          dest: '.tmp/module/'
           ext: '.js'
         ]
 
@@ -76,7 +79,57 @@ module.exports = (grunt) ->
         options:
           debugInfo: true
 
+    clean:
+      dist:
+        files: [
+          dot: true
+          src: [
+            '.tmp',
+            'dist'
+          ]
+        ]
+
+    useminPrepare:
+      html: 'app/index.html'
+      options:
+        dest: 'dist'
+
+    htmlmin:
+      dist:
+        files:[
+          expand: true
+          cwd: 'app'
+          src: ['*.html']
+          dest: 'dist'
+        ]
+
+    ngmin:
+      dist:
+        files: [
+          expand: true
+          cwd: '.tmp/concat/scripts'
+          src: '*.js'
+          dest: '.tmp/concat/scripts'
+        ]
+
+    copy:
+      dist:
+        files: [
+          expand: true
+          dot: true
+          cwd: 'app'
+          dest: 'dist'
+          src: [
+            'bower_components/**/*'
+          ]
+        ]
+
+    usemin:
+      html: ['dist/**/*.html']
+      css: ['dist/styles/**/*.css']
+
   grunt.registerTask "serve", [
+    'clean',
     "coffee", 
     "coffeelint",
     "compass:server",
@@ -89,4 +142,18 @@ module.exports = (grunt) ->
     "coffeelint",
     "compass:server",
     "karma"
+  ]
+
+  grunt.registerTask "build", [
+    'clean'
+    'useminPrepare',
+    'coffee',
+    "coffeelint",
+    "compass",
+    "htmlmin",
+    "concat",
+    "ngmin",
+    "copy:dist",
+    "uglify",
+    "usemin"
   ]
