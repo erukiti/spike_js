@@ -4,6 +4,9 @@ LOCAL_PROCESS_PORT = 10000
 
 module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib'
+  grunt.loadNpmTasks 'grunt-karma'
+  grunt.loadNpmTasks 'grunt-coffeelint'
+  require('time-grunt')(grunt)
 
   grunt.initConfig
     connect:
@@ -20,7 +23,7 @@ module.exports = (grunt) ->
     watch:
       coffee:
         files: "app/module/**/*.coffee"
-        tasks: ["coffee"]
+        tasks: ["coffee", "coffeelint"]
 
     coffee:
       compile:
@@ -31,14 +34,45 @@ module.exports = (grunt) ->
           dest: 'dist/module/'
           ext: '.js'
         ]
-    # ngmin:
 
-          # 'dist/all.js': [
-          #   "app/modules/**/*.coffee"
-          # ]
+    karma:
+      unit:
+        configFile: 'karma.conf.js'
+        singleRun: true
+        browsers: ['PhantomJS']
+
+    coffeelint:
+      options:
+        no_plusplus:
+          level: 'error'
+        cyclomatic_complexity:
+          value: 10
+          level: 'error'
+      app:
+        files:
+          src: ['app/module/**/*.coffee']
+        options:
+          max_line_length:
+            value: 120
+            level: 'warn'
+
+      test:
+        files:
+          src: ['test/spec/**/*.spec.coffee']
+        options:
+          max_line_length:
+            value: 140
+            level: 'warn'
 
   grunt.registerTask "serve", [
     "coffee", 
+    "coffeelint"
     "connect", 
     "watch:coffee"
+  ]
+
+  grunt.registerTask "test", [
+    "coffee",
+    "coffeelint"
+    "karma"
   ]
