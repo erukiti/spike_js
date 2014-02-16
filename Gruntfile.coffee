@@ -25,6 +25,10 @@ module.exports = (grunt) ->
         files: "app/module/**/*.coffee"
         tasks: ["coffee", "coffeelint"]
 
+      compass:
+        files: "app/styles/**/*.{scss,sass}"
+        tasks: ["compass:server"]
+
     coffee:
       compile:
         files: [
@@ -64,15 +68,25 @@ module.exports = (grunt) ->
             value: 140
             level: 'warn'
 
+    compass:
+      options:
+        sassDir: 'app/styles'
+        cssDir: 'dist/styles'
+      server:
+        options:
+          debugInfo: true
+
   grunt.registerTask "serve", [
     "coffee", 
-    "coffeelint"
+    "coffeelint",
+    "compass:server",
     "connect", 
-    "watch:coffee"
+    "watch"
   ]
 
   grunt.registerTask "test", [
     "coffee",
-    "coffeelint"
+    "coffeelint",
+    "compass:server",
     "karma"
   ]

@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja" ng-app="spike">
 <meta charset="utf-8">
-<script src="/bower_components/angular/angular.min.js"></script>
-<script src="/module/app.js"></script>
+
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" type="text/css" href="bower_components/sass-bootstrap/dist/css/bootstrap.css">
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="module/app.js"></script>
+
 <h1>ほげー</h1>
-<div ng-controller="versionController">
+<div ng-controller="versionController" class="container">
   <dl>
     <dt>name</dt><dd>{{version.name}}</dd>
     <dt>version</dt><dd>{{version.version}}</dd>

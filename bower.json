@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "angular": "~1.2.13",
-    "angular-mocks": "~1.2.13"
+    "angular-mocks": "~1.2.13",
+    "sass-bootstrap": "~3.0.2"
   }
 }
